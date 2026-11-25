@@ -179,7 +179,7 @@ input[aria-invalid='true'] { border-color: var(--danger); }
 .price:hover { border-color: var(--border-strong); }
 .price-form { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; align-items: center; }
 .price-form input { width: 110px; height: 32px; text-align: right; }
-.price-form .field-error { flex-basis: 100%; text-align: right; }
+.price-form .field-error { flex-basis: 100%; text-align: right; white-space: normal; }
 
 /* Banners */
 .banner { margin-bottom: 16px; padding: 10px 14px; border-radius: var(--radius); background: var(--notice-bg); }
