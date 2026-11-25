@@ -72,10 +72,21 @@ cd frontend && npm test           # 23 tests, sans back (API simulée)
 
 ## Ce qui n'est pas fait
 
-- Retirer une ressource d'un ouvrage, modifier une quantité.
-- Créer des ouvrages ou des ressources (seulement le jeu de données initial).
-- Historique des prix : un nouveau prix remplace l'ancien.
-- Tests de bout en bout automatisés dans le dépôt (vérifiés à la main et par script pendant le développement).
+Chaque point suit le même chemin que l'existant : contrat (`docs/openapi.yaml`), puis `npm run generate:api`,
+service + contrôleur + tests côté back, écran + tests côté front.
+
+- **Retirer une ressource d'un ouvrage** : `DELETE /api/work-items/{workItemId}/resources/{resourceId}` → 200 avec
+  l'ouvrage recalculé (comme l'ajout), 404 si l'ouvrage ou la ligne n'existe pas. Dans `WorkItemService` :
+  `findByIdWithLines`, puis `item.getLines().removeIf(...)` ; `orphanRemoval = true` supprime la ligne en base.
+  Écran : un bouton « Remove » par ligne.
+- **Modifier une quantité** : `PATCH /api/work-items/{workItemId}/resources/{resourceId}` avec `{ quantity }` → 200
+  avec l'ouvrage recalculé, 400 si quantité ≤ 0 (même validation que l'ajout), 404 si la ligne n'existe pas.
+  Écran : même édition en ligne que le prix d'une ressource.
+- **Créer une ressource** : `POST /api/resources` avec `{ name, type, unit, unitPrice }` → 201, 409 si le nom existe
+  déjà (contrainte `UNIQUE` sur `name`).
+- **Créer un ouvrage** : `POST /api/work-items` avec `{ name, unit }` → 201 avec un déboursé à 0, 409 si le nom existe.
+- **Historique des prix** : un nouveau prix remplace l'ancien (voir « Ce que je ferais ensuite »).
+- **Tests de bout en bout automatisés** dans le dépôt : vérifiés à la main et par script pendant le développement.
 
 ## Ce que je ferais ensuite
 
