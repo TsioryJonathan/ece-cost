@@ -46,7 +46,10 @@ yeah fill in the readme and the Regard Metier, for me i think it is destined to 
 - Regard métier : j'avais pensé que l'écran servait au commercial et au gestionnaire des ressources, pour la traçabilité. L'IA a recentré sur l'économiste qui répond aux appels d'offres, et mon idée de traçabilité est devenue la prochaine fonctionnalité (figement des prix par offre).
 
 ## Exemple de proposition corrigée ou refusée
-<à compléter par Jonathan. Candidats notés en cours de route :>
-- En relisant le front, j'ai vu que l'IA utilisait `FormEvent`, marqué `@deprecated` dans `@types/react` 19 (« FormEvent doesn't actually exist »). Prompt de relecture : `there is many deprecated type you are using right now, suche as FormProps`. Corrigé en `SubmitEvent<HTMLFormElement>` ; l'IA a ensuite listé toutes les API dépréciées avec le compilateur TypeScript (0 restante) au lieu de corriger seulement celle que j'avais citée.
-- Le sous-agent qui a écrit le faux serveur a ajouté de lui-même un en-tête CORS `Access-Control-Allow-Origin: *`, non demandé. Refusé et retiré : le front passe par le proxy Vite, donc pas de CORS, et ça aurait masqué un vrai problème de configuration au moment de brancher le vrai back.
-- La première installation a pris TypeScript 7 (réécriture native), incompatible avec `openapi-typescript` qui a besoin de l'API JavaScript de TypeScript 5 : génération en erreur, corrigé en fixant `typescript@5`.
+En relisant le code du front écrit par l'IA, j'ai vu qu'elle typait les soumissions de formulaire avec `FormEvent`,
+marqué `@deprecated` dans `@types/react` 19 (« FormEvent doesn't actually exist »). Le code compilait et les tests
+passaient, donc rien ne le signalait : seule la relecture l'a montré. Prompt de relecture :
+`there is many deprecated type you are using right now, suche as FormProps`.
+Correction : `SubmitEvent<HTMLFormElement>`, le type prévu pour un `submit`. Comme mon message parlait de plusieurs
+types, l'IA ne s'est pas contentée de l'exemple cité : elle a listé toutes les API dépréciées du front avec le
+compilateur TypeScript. Il n'y en avait pas d'autre, et il n'en reste aucune.
