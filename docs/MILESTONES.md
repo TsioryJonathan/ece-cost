@@ -53,11 +53,11 @@ Budget: 2h total.
 
 ## M7 — Integration (J + C, ~10 min)
 
-- [ ] Run front against real backend, check the 3 features end to end
+- [x] Run front against real backend, check the 3 features end to end
 
 ## M8 — Delivery (J + C, ~10 min)
 
-- [ ] README (FR): run, done / not done, assumptions, 5-line business view
+- [x] README (FR): run, done / not done, assumptions, 5-line business view
 - [ ] IA.md (FR) finalized
-- [ ] J reviews frontend code
+- [x] J reviews frontend code
 - [ ] Push, send link — **before noon (Madagascar time), then no more commits**

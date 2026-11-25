@@ -26,13 +26,24 @@ you make them, and your schema is the same i had in mind, so to begin ill let yo
 so you can begin yours now while i do mine ? use a mock server if you have to test if i dont finish yet so you dont have to wait for me, for the client generator, use openapi-typescript with fetch, and just make a clean layout layered with hierarchy, and lastly dont worry about the remote ill create it after
 ```
 
+### 4. Vérification de bout en bout
+```
+there, i finished everything now, i want you to test everything
+```
+
+### 5. README et regard métier
+```
+yeah fill in the readme and the Regard Metier, for me i think it is destined to someone who is in charge of the sale and gestion of all the resource ? for accountability ? or am i wrong ?
+```
+
 ## Méthode
 - Lecture de l'énoncé par l'IA, puis proposition de schéma de BDD et d'hypothèses ; j'ai comparé avec le schéma que j'avais en tête avant de valider.
 - Contrat OpenAPI écrit d'abord (`docs/openapi.yaml`) pour travailler en parallèle : moi sur le back (avec les DTO générés par l'IA d'après le contrat), l'IA sur le front, avec un client TypeScript généré depuis ce contrat (`openapi-typescript` + `openapi-fetch`).
 - Travail découpé en jalons (`docs/MILESTONES.md`) avec un responsable par jalon.
 - Pour ne pas attendre le back, l'IA a écrit un faux serveur en mémoire (`frontend/mock/server.mjs`, sans dépendance) qui suit le contrat.
 - Délégation : Claude a confié l'écriture du faux serveur à un modèle plus petit (Sonnet) avec un cahier des charges précis, puis a relu le code et rejoué les vérifications lui-même.
-- Vérification : tests automatisés (Vitest + Testing Library côté front), typecheck `tsc`, captures d'écran à 1440 / 768 / 390 px, puis relecture de tout le code front par moi.
+- Vérification : tests automatisés (52 côté back, 23 côté front), typecheck `tsc`, captures d'écran à 1440 / 768 / 390 px, relecture de tout le code front par moi. En fin de parcours, l'IA a vérifié l'API réelle contre le contrat OpenAPI (52 contrôles : schémas, codes d'erreur, prix recalculés indépendamment) et a piloté l'écran dans un navigateur sur la vraie base (18 contrôles), ce qui a révélé un débordement du panneau des prix corrigé ensuite.
+- Regard métier : j'avais pensé que l'écran servait au commercial et au gestionnaire des ressources, pour la traçabilité. L'IA a recentré sur l'économiste qui répond aux appels d'offres, et mon idée de traçabilité est devenue la prochaine fonctionnalité (figement des prix par offre).
 
 ## Exemple de proposition corrigée ou refusée
 <à compléter par Jonathan. Candidats notés en cours de route :>
