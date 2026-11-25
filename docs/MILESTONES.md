@@ -58,6 +58,6 @@ Budget: 2h total.
 ## M8 — Delivery (J + C, ~10 min)
 
 - [x] README (FR): run, done / not done, assumptions, 5-line business view
-- [ ] IA.md (FR) finalized
+- [x] IA.md (FR) finalized
 - [x] J reviews frontend code
 - [ ] Push, send link — **before noon (Madagascar time), then no more commits**

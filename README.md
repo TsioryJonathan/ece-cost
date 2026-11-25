@@ -77,6 +77,14 @@ cd frontend && npm test           # 23 tests, sans back (API simulée)
 - Historique des prix : un nouveau prix remplace l'ancien.
 - Tests de bout en bout automatisés dans le dépôt (vérifiés à la main et par script pendant le développement).
 
+## Ce que je ferais ensuite
+
+- Retirer une ressource d'un ouvrage et modifier une quantité (contrat, API, écran).
+- Figer les prix par offre : un instantané daté des ressources et des sous-détails (voir « Regard métier »).
+- Un test de bout en bout automatisé de l'écran (Playwright) sur les trois parcours.
+- Lancer les tests d'API sur une base jetable (Testcontainers) plutôt que sur la base de développement.
+- Une intégration continue qui lance les tests back et front, et vérifie que le client généré suit le contrat.
+
 ## Hypothèses sur les zones floues
 
 - **Montants et arrondis** : calcul exact (`BigDecimal`), puis coût de ligne, déboursé sec et prix de vente
