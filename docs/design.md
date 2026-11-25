@@ -18,7 +18,7 @@ Auth, permissions, Docker, CI, price history, deleting/editing lines, creating w
 - Prices are never entered by hand nor stored: computed on read. Amounts in ariary.
 
 ## Decisions (assumptions go to the README in French)
-- Schema: `resource`, `work_item`, `work_item_resource (PK work_item_id + resource_id, quantity > 0)`.
+- Schema: `resource`, `work_item`, `work_item_resource (surrogate id PK, UNIQUE work_item_id + resource_id, quantity > 0)`.
   DB CHECK constraints mirror the rules.
 - Adding a resource already on the work item → 409, not summed.
 - Unit price ≥ 0 (0 allowed, negative refused). NUMERIC(14,2); quantity NUMERIC(12,4).
