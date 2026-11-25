@@ -9,7 +9,7 @@ type Props = {
   onAdd: (workItemId: number, resourceId: number, quantity: number) => Action;
 };
 
-const TYPES: ResourceType[] = ['MATERIAL', 'LABOR', 'EQUIPMENT'];
+const TYPES: ResourceType[] = ['MATERIAL', 'LABOUR', 'EQUIPMENT'];
 
 export function WorkItemCard({ item, resources, onAdd }: Props) {
   const used = new Set(item.lines.map((l) => l.resourceId));
@@ -79,7 +79,7 @@ export function WorkItemCard({ item, resources, onAdd }: Props) {
   );
 }
 
-/** Share of the direct cost taken by materials, labor and equipment. */
+/** Share of the direct cost taken by materials, labour and equipment. */
 function CostSplit({ item }: { item: WorkItem }) {
   if (item.directCost <= 0) return null;
   const shares = TYPES.map((type) => {

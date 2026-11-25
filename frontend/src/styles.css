@@ -89,7 +89,7 @@ button, input, select { font: inherit; color: inherit; }
 .split__bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; }
 .split__seg { display: block; min-width: 2px; }
 .split__seg--material { background: var(--data); }
-.split__seg--labor { background: var(--data-2); }
+.split__seg--labour { background: var(--data-2); }
 .split__seg--equipment { background: var(--data-3); }
 .split__legend { display: flex; gap: 16px; font-size: 13px; color: var(--muted); }
 .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }

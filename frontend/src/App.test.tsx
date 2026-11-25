@@ -5,7 +5,7 @@ import App from './App';
 import type { Resource, WorkItem } from './api/client';
 
 const cement: Resource = { id: 1, name: 'Cement', type: 'MATERIAL', unit: 'bag', unitPrice: 32500 };
-const mason: Resource = { id: 5, name: 'Mason', type: 'LABOR', unit: 'hour', unitPrice: 5000 };
+const mason: Resource = { id: 5, name: 'Mason', type: 'LABOUR', unit: 'hour', unitPrice: 5000 };
 
 const concrete = (cementPrice = 32500): WorkItem => {
   const direct = 7 * cementPrice + 2 * 5000;
@@ -17,7 +17,7 @@ const concrete = (cementPrice = 32500): WorkItem => {
     salePrice: Math.round(direct * 1.35),
     lines: [
       { resourceId: 1, resourceName: 'Cement', resourceType: 'MATERIAL', unit: 'bag', unitPrice: cementPrice, quantity: 7, lineCost: 7 * cementPrice },
-      { resourceId: 5, resourceName: 'Mason', resourceType: 'LABOR', unit: 'hour', unitPrice: 5000, quantity: 2, lineCost: 10000 },
+      { resourceId: 5, resourceName: 'Mason', resourceType: 'LABOUR', unit: 'hour', unitPrice: 5000, quantity: 2, lineCost: 10000 },
     ],
   };
 };
@@ -48,7 +48,7 @@ function stubApi() {
         ...wall,
         directCost: quantity * 5000,
         salePrice: Math.round(quantity * 5000 * 1.35),
-        lines: [{ resourceId: 5, resourceName: 'Mason', resourceType: 'LABOR', unit: 'hour', unitPrice: 5000, quantity, lineCost: quantity * 5000 }],
+        lines: [{ resourceId: 5, resourceName: 'Mason', resourceType: 'LABOUR', unit: 'hour', unitPrice: 5000, quantity, lineCost: quantity * 5000 }],
       };
       return json(wallItem, 201);
     }

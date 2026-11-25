@@ -4,7 +4,7 @@ import { createServer } from 'node:http';
 const resources = [
   [1, 'Cement', 'MATERIAL', 'bag', 32500], [2, 'Sand', 'MATERIAL', 'm³', 45000],
   [3, 'Gravel', 'MATERIAL', 'm³', 60000], [4, 'Rebar HA10', 'MATERIAL', 'kg', 6500],
-  [5, 'Mason', 'LABOR', 'hour', 5000], [6, 'Laborer', 'LABOR', 'hour', 3000],
+  [5, 'Mason', 'LABOUR', 'hour', 5000], [6, 'Laborer', 'LABOUR', 'hour', 3000],
   [7, 'Concrete mixer', 'EQUIPMENT', 'hour', 15000],
 ].map(([id, name, type, unit, unitPrice]) => ({ id, name, type, unit, unitPrice }));
 

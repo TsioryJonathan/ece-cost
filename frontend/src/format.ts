@@ -8,6 +8,6 @@ export const formatQuantity = (value: number) => quantity.format(value);
 
 export const resourceTypeLabel: Record<ResourceType, string> = {
   MATERIAL: 'Material',
-  LABOR: 'Labor',
+  LABOUR: 'Labour',
   EQUIPMENT: 'Equipment',
 };

@@ -132,7 +132,7 @@ components:
   schemas:
     ResourceType:
       type: string
-      enum: [MATERIAL, LABOR, EQUIPMENT]
+      enum: [MATERIAL, LABOUR, EQUIPMENT]
     Resource:
       type: object
       required: [id, name, type, unit, unitPrice]

@@ -86,7 +86,7 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         /** @enum {string} */
-        ResourceType: "MATERIAL" | "LABOR" | "EQUIPMENT";
+        ResourceType: "MATERIAL" | "LABOUR" | "EQUIPMENT";
         Resource: {
             /** Format: int64 */
             id: number;
