@@ -1,0 +1,23 @@
+# Java / Gradle
+backend/build/
+backend/bin/
+backend/.gradle/
+# Eclipse
+backend/.settings/
+backend/.project
+backend/.classpath
+backend/.factorypath
+# IntelliJ / VS Code
+.idea/
+*.iml
+.vscode/
+# Node
+node_modules/
+dist/
+coverage/
+# Env
+.env
+.env.local
+
+# Brief (not part of the deliverable)
+*.pdf
