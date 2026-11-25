@@ -36,5 +36,6 @@ so you can begin yours now while i do mine ? use a mock server if you have to te
 
 ## Exemple de proposition corrigée ou refusée
 <à compléter par Jonathan. Candidats notés en cours de route :>
+- En relisant le front, j'ai vu que l'IA utilisait `FormEvent`, marqué `@deprecated` dans `@types/react` 19 (« FormEvent doesn't actually exist »). Prompt de relecture : `there is many deprecated type you are using right now, suche as FormProps`. Corrigé en `SubmitEvent<HTMLFormElement>` ; l'IA a ensuite listé toutes les API dépréciées avec le compilateur TypeScript (0 restante) au lieu de corriger seulement celle que j'avais citée.
 - Le sous-agent qui a écrit le faux serveur a ajouté de lui-même un en-tête CORS `Access-Control-Allow-Origin: *`, non demandé. Refusé et retiré : le front passe par le proxy Vite, donc pas de CORS, et ça aurait masqué un vrai problème de configuration au moment de brancher le vrai back.
 - La première installation a pris TypeScript 7 (réécriture native), incompatible avec `openapi-typescript` qui a besoin de l'API JavaScript de TypeScript 5 : génération en erreur, corrigé en fixant `typescript@5`.
