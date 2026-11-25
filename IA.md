@@ -21,11 +21,20 @@ There is a pdf in this folder covering some work i should do within 2 hours, and
 you make them, and your schema is the same i had in mind, so to begin ill let you write the oas documentation so we both can work in parallel, you on the frontend and me on the backend, you should use a client api generator from the OAS, and there is already a skill for anti-slop design, and before beggining, we should split work in milestone so you and i can track everything, ill also review your code at the end
 ```
 
+### 3. Lancement du front en parallèle
+```
+so you can begin yours now while i do mine ? use a mock server if you have to test if i dont finish yet so you dont have to wait for me, for the client generator, use openapi-typescript with fetch, and just make a clean layout layered with hierarchy, and lastly dont worry about the remote ill create it after
+```
+
 ## Méthode
 - Lecture de l'énoncé par l'IA, puis proposition de schéma de BDD et d'hypothèses ; j'ai comparé avec le schéma que j'avais en tête avant de valider.
-- Contrat OpenAPI écrit d'abord (`docs/openapi.yaml`) pour travailler en parallèle : moi sur le back, l'IA sur le front, avec un client TypeScript généré depuis ce contrat.
+- Contrat OpenAPI écrit d'abord (`docs/openapi.yaml`) pour travailler en parallèle : moi sur le back, l'IA sur le front, avec un client TypeScript généré depuis ce contrat (`openapi-typescript` + `openapi-fetch`).
 - Travail découpé en jalons (`docs/MILESTONES.md`) avec un responsable par jalon.
-- Vérification : <à compléter>
+- Pour ne pas attendre le back, l'IA a écrit un faux serveur en mémoire (`frontend/mock/server.mjs`, sans dépendance) qui suit le contrat.
+- Délégation : Claude a confié l'écriture du faux serveur à un modèle plus petit (Sonnet) avec un cahier des charges précis, puis a relu le code et rejoué les vérifications lui-même.
+- Vérification : tests automatisés (Vitest + Testing Library côté front), typecheck `tsc`, captures d'écran à 1440 / 768 / 390 px, puis relecture de tout le code front par moi.
 
 ## Exemple de proposition corrigée ou refusée
-<à compléter>
+<à compléter par Jonathan. Candidats notés en cours de route :>
+- Le sous-agent qui a écrit le faux serveur a ajouté de lui-même un en-tête CORS `Access-Control-Allow-Origin: *`, non demandé. Refusé et retiré : le front passe par le proxy Vite, donc pas de CORS, et ça aurait masqué un vrai problème de configuration au moment de brancher le vrai back.
+- La première installation a pris TypeScript 7 (réécriture native), incompatible avec `openapi-typescript` qui a besoin de l'API JavaScript de TypeScript 5 : génération en erreur, corrigé en fixant `typescript@5`.

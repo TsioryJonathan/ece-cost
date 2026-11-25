@@ -26,20 +26,23 @@ Budget: 2h total.
 - [ ] MockMvc tests (happy path + validation errors)
 
 ## M4 — Frontend scaffold (C, ~15 min)
-- [ ] Vite + React + TS in `frontend/`
-- [ ] `npm run generate:api` → types from `docs/openapi.yaml`, typed client with `openapi-fetch`
-- [ ] Vite proxy `/api` → `:8080`, Vitest setup
+- [x] Vite + React + TS in `frontend/`
+- [x] `npm run generate:api` → types from `docs/openapi.yaml`, typed client with `openapi-fetch`
+- [x] Vite proxy `/api` → `:8080` (`npm run dev:mock` → mock on `:8081`), Vitest setup
+- [x] Stateful mock API (`npm run mock`, no dependency)
 
 ## M5 — Screen (C, ~35 min)
-- [ ] Work items table (direct cost, sale price, expandable lines)
-- [ ] Add resource form (resource select + quantity > 0)
-- [ ] Resource prices list with inline edit
-- [ ] Loading / error states (ProblemDetail `detail` shown)
+- [x] Work items with direct cost, sale price, lines table, cost split by resource type
+- [x] Add resource form (resource select + quantity > 0, comma or dot decimals)
+- [x] Resource prices list with inline edit (Enter saves, Escape cancels)
+- [x] Loading / error states (ProblemDetail `detail` shown), notice after a price change
 
 ## M6 — Frontend tests (C, ~10 min)
-- [ ] List renders amounts
-- [ ] Quantity ≤ 0 is refused before calling the API
-- [ ] Price change refreshes work items
+- [x] List renders amounts
+- [x] Quantity ≤ 0 is refused before calling the API
+- [x] Price change refreshes work items
+- [x] Add resource shows recomputed prices; 409 detail shown; negative price refused
+- [x] Validation unit tests
 
 ## M7 — Integration (J + C, ~10 min)
 - [ ] Run front against real backend, check the 3 features end to end
