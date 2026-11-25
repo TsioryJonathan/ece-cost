@@ -2,7 +2,7 @@
 
 ## Outils
 - Claude Code (Claude Opus 5.5, en terminal) : brainstorming, rédaction du contrat OpenAPI, découpage en jalons, développement du front React, rédaction de la doc.
-- Backend (Spring Boot) : écrit par moi.
+- Backend (Spring Boot) : écrit par moi, sauf les DTO (objets de requête et de réponse de l'API), écrits par l'IA à partir du contrat `docs/openapi.yaml`, puis relus et intégrés par moi.
 
 ## Fichiers de contexte donnés à l'IA
 - `CLAUDE.md` (règles du projet : langue, commits, tests, pas de surcharge de librairies, je décide)
@@ -28,7 +28,7 @@ so you can begin yours now while i do mine ? use a mock server if you have to te
 
 ## Méthode
 - Lecture de l'énoncé par l'IA, puis proposition de schéma de BDD et d'hypothèses ; j'ai comparé avec le schéma que j'avais en tête avant de valider.
-- Contrat OpenAPI écrit d'abord (`docs/openapi.yaml`) pour travailler en parallèle : moi sur le back, l'IA sur le front, avec un client TypeScript généré depuis ce contrat (`openapi-typescript` + `openapi-fetch`).
+- Contrat OpenAPI écrit d'abord (`docs/openapi.yaml`) pour travailler en parallèle : moi sur le back (avec les DTO générés par l'IA d'après le contrat), l'IA sur le front, avec un client TypeScript généré depuis ce contrat (`openapi-typescript` + `openapi-fetch`).
 - Travail découpé en jalons (`docs/MILESTONES.md`) avec un responsable par jalon.
 - Pour ne pas attendre le back, l'IA a écrit un faux serveur en mémoire (`frontend/mock/server.mjs`, sans dépendance) qui suit le contrat.
 - Délégation : Claude a confié l'écriture du faux serveur à un modèle plus petit (Sonnet) avec un cahier des charges précis, puis a relu le code et rejoué les vérifications lui-même.
