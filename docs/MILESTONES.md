@@ -10,9 +10,9 @@ Budget: 2h total.
 - [x] `IA.md` started, `CLAUDE.md` (AI context file kept in repo)
 
 ## M1 — Database (J, ~15 min)
-- [ ] Datasource config (`application.properties`)
-- [ ] Flyway `V1__schema.sql` (3 tables + CHECK constraints)
-- [ ] Flyway `V2__seed.sql` (3–5 work items, 5–8 resources, some lines)
+- [x] Datasource config (`application.properties`)
+- [x] Flyway `V1__schema.sql` (3 tables + CHECK constraints)
+- [x] Flyway `V2__seed.sql` (3–5 work items, 5–8 resources, some lines)
 
 ## M2 — Price calculation (J, ~15 min)
 - [ ] Pure calculator: line cost, direct cost, sale price (K = 1.35), rounding
