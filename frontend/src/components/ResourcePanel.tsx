@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 import type { Resource } from '../api/client';
 import type { Action } from '../App';
 import { formatAriary, resourceTypeLabel } from '../format';
@@ -42,7 +42,7 @@ function ResourceRow({ resource, onUpdatePrice }: { resource: Resource } & Pick<
     setError(undefined);
   };
 
-  const save = async (event: FormEvent) => {
+  const save = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const parsed = parsePrice(draft ?? '');
     if (!parsed.ok) return setError(parsed.error);

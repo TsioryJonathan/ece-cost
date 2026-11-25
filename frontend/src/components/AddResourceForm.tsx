@@ -1,4 +1,4 @@
-import { useId, useState, type FormEvent } from 'react';
+import { useId, useState, type SubmitEvent } from 'react';
 import type { Resource } from '../api/client';
 import type { Action } from '../App';
 import { parseQuantity } from '../validation';
@@ -22,7 +22,7 @@ export function AddResourceForm({ workItemUnit, available, onAdd }: Props) {
 
   const selected = available.find((r) => String(r.id) === resourceId);
 
-  const submit = async (event: FormEvent) => {
+  const submit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selected) return setError('Choose a resource.');
     const parsed = parseQuantity(quantity);
