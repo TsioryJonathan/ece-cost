@@ -1,0 +1,235 @@
+openapi: 3.1.0
+info:
+  title: ECE Cost - Price breakdown API
+  version: 1.0.0
+  description: |
+    Price breakdown ("sous-détail de prix") of work items.
+
+    - Direct cost ("déboursé sec") of a work item = sum over its lines of quantity x resource unit price.
+    - Sale price = direct cost x K, with K = 1.35 for the whole application.
+    - Direct cost, line cost and sale price are always computed, never stored or sent by the client.
+    - Computation is exact; `lineCost`, `directCost` and `salePrice` are each rounded to the whole
+      ariary (HALF_UP) from their exact value.
+    - All amounts are in ariary (MGA).
+    - Errors use RFC 9457 Problem Details (`application/problem+json`).
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/work-items:
+    get:
+      operationId: listWorkItems
+      summary: List work items with their lines, direct cost and sale price
+      description: Ordered by id. Lines are ordered by resource name.
+      tags: [work-items]
+      responses:
+        '200':
+          description: Work items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkItem'
+  /api/work-items/{workItemId}/resources:
+    post:
+      operationId: addResourceToWorkItem
+      summary: Add a resource line to a work item
+      tags: [work-items]
+      parameters:
+        - $ref: '#/components/parameters/WorkItemId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddResourceRequest'
+      responses:
+        '201':
+          description: Line added. Returns the updated work item with recomputed prices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkItem'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: The resource is already used by this work item.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /api/resources:
+    get:
+      operationId: listResources
+      summary: List resources
+      description: Ordered by name.
+      tags: [resources]
+      responses:
+        '200':
+          description: Resources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Resource'
+  /api/resources/{resourceId}:
+    patch:
+      operationId: updateResourcePrice
+      summary: Change the unit price of a resource
+      description: Every work item using this resource is affected (prices are computed on read).
+      tags: [resources]
+      parameters:
+        - $ref: '#/components/parameters/ResourceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateResourcePriceRequest'
+      responses:
+        '200':
+          description: Updated resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    WorkItemId:
+      name: workItemId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+    ResourceId:
+      name: resourceId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+  responses:
+    ValidationError:
+      description: Invalid request body (missing field, quantity <= 0, negative price...)
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+    NotFound:
+      description: Work item or resource not found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  schemas:
+    ResourceType:
+      type: string
+      enum: [MATERIAL, LABOR, EQUIPMENT]
+    Resource:
+      type: object
+      required: [id, name, type, unit, unitPrice]
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          examples: [Cement]
+        type:
+          $ref: '#/components/schemas/ResourceType'
+        unit:
+          type: string
+          examples: [bag]
+        unitPrice:
+          type: number
+          minimum: 0
+          description: Ariary, up to 2 decimals.
+          examples: [32500]
+    WorkItemLine:
+      type: object
+      required: [resourceId, resourceName, resourceType, unit, unitPrice, quantity, lineCost]
+      properties:
+        resourceId:
+          type: integer
+          format: int64
+        resourceName:
+          type: string
+        resourceType:
+          $ref: '#/components/schemas/ResourceType'
+        unit:
+          type: string
+          description: Unit of the resource.
+        unitPrice:
+          type: number
+          description: Current unit price of the resource, ariary.
+        quantity:
+          type: number
+          exclusiveMinimum: 0
+          description: Quantity of resource consumed per unit of work item (up to 4 decimals).
+        lineCost:
+          type: number
+          description: quantity x unitPrice, rounded to the whole ariary.
+    WorkItem:
+      type: object
+      required: [id, name, unit, directCost, salePrice, lines]
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          examples: [Foundation concrete]
+        unit:
+          type: string
+          examples: [m³]
+        directCost:
+          type: number
+          description: Déboursé sec per unit of work item, rounded to the whole ariary.
+        salePrice:
+          type: number
+          description: directCost (exact) x 1.35, rounded to the whole ariary.
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkItemLine'
+    AddResourceRequest:
+      type: object
+      required: [resourceId, quantity]
+      properties:
+        resourceId:
+          type: integer
+          format: int64
+        quantity:
+          type: number
+          exclusiveMinimum: 0
+          description: Strictly positive, up to 4 decimals.
+    UpdateResourcePriceRequest:
+      type: object
+      required: [unitPrice]
+      properties:
+        unitPrice:
+          type: number
+          minimum: 0
+          description: Ariary, up to 2 decimals.
+    Problem:
+      type: object
+      description: RFC 9457 Problem Details (Spring ProblemDetail).
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
